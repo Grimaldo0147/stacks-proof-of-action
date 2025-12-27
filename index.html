@@ -36,8 +36,26 @@
   <p>Public on-chain log of what builders ship.</p>
 
   <input placeholder="What did you ship today?" disabled />
-  <button disabled>Submit (Coming Soon)</button>
+  <button onclick="connectWallet()">Connect Wallet</button>
 
   <div class="action">Example: Deployed my first contract</div>
+  <script src="https://unpkg.com/@stacks/connect/dist/bundle.umd.js"></script>
+
+<script>
+  const appConfig = new window.StacksConnect.AppConfig(['store_write']);
+  const userSession = new window.StacksConnect.UserSession({ appConfig });
+
+  function connectWallet() {
+    window.StacksConnect.showConnect({
+      appDetails: {
+        name: 'Stacks Proof of Action',
+      },
+      userSession,
+      onFinish: () => {
+        alert("Wallet connected!");
+      }
+    });
+  }
+</script>
 </body>
 </html>
